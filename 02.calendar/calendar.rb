@@ -10,14 +10,13 @@ puts year_month.center(20)
 
 puts "日 月 火 水 木 金 土"
 
-first_date = Date.new(year, month, 1).day
-last_date = Date.new(year, month, -1).day
-first_day = Date.new(year, month, 1).wday
-print "   " * first_day
+first_date = Date.new(year, month, 1)
+last_date = Date.new(year, month, -1)
+print "   " * first_date.wday
 
 (first_date..last_date).each do |date|
-  printf("%2d ", date)
-  if (first_day + date) % 7 == 0
+  printf("%2d ", date.mday)
+  if date.saturday?
     print "\n"
   end
 end
