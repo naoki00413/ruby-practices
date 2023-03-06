@@ -12,32 +12,23 @@ scores.each do |s|
   end
 end
 
-frames = []
-shots.each_slice(2) do |s|
-  frames << if s[0] == 10
-              [s.shift] # 配列[10,0]から０を消す
-            else
-              s
-            end
-end
-
-point = 0
-frames[0..8].each_with_index do |frame, i|
+frames = shots.each_slice(2).to_a
+point = frames[0..8].each_with_index.sum do |frame, i|
   if frame[0] == 10 # ストライクの処理
     if frames[i + 1][0] != 10 # ストライクが続かなった時の処理
-      point += 10 + frames[i + 1][0] + frames[i + 1][1]
+      point = 10 + frames[i + 1][0] + frames[i + 1][1]
     elsif frames[i + 1][0] == 10 # ストライクが続いた時の処理
-      point += 10 + frames[i + 1][0] + frames[i + 2][0]
+      point = 10 + frames[i + 1][0] + frames[i + 2][0]
     end
   elsif frame.sum == 10 # スペアの処理
-    point += 10 + frames[i + 1][0]
+    point = 10 + frames[i + 1][0]
   else
-    point += frame.sum
+    point = frame.sum
   end
 end
 # 10投目以降の処理
-frames[9].concat(frames[10]) if frames[10]
-frames[9].concat(frames[11]) if frames[11]
+frames[9].concat frames[10].to_a
+frames[9].concat frames[11].to_a
 frames.slice!(10, 11)
 
 # 10投目の計算
