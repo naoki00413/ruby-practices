@@ -16,19 +16,18 @@ frames = shots.each_slice(2).to_a
 point = frames[0..8].each_with_index.sum do |frame, i|
   if frame[0] == 10 # ストライクの処理
     if frames[i + 1][0] != 10 # ストライクが続かなった時の処理
-      point = 10 + frames[i + 1][0] + frames[i + 1][1]
+      10 + frames[i + 1][0] + frames[i + 1][1]
     elsif frames[i + 1][0] == 10 # ストライクが続いた時の処理
-      point = 10 + frames[i + 1][0] + frames[i + 2][0]
+      10 + frames[i + 1][0] + frames[i + 2][0]
     end
   elsif frame.sum == 10 # スペアの処理
-    point = 10 + frames[i + 1][0]
+    10 + frames[i + 1][0]
   else
-    point = frame.sum
+    frame.sum
   end
 end
 # 10投目以降の処理
-frames[9].concat frames[10].to_a
-frames[9].concat frames[11].to_a
+frames[9].concat frames[10] + frames[11].to_a
 frames.slice!(10, 11)
 
 # 10投目の計算
