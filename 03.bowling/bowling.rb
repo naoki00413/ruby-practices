@@ -28,8 +28,6 @@ point = frames[0..8].each_with_index.sum do |frame, i|
 end
 # 10投目以降の処理
 frames[9].concat frames[10] + frames[11].to_a
-frames.slice!(10, 11)
-
 # 10投目の計算
 point += if frames[9].sum == 30 # ストライク
            30
