@@ -3,6 +3,7 @@
 score = ARGV[0]
 scores = score.split(',')
 shots = []
+shots.count
 scores.each do |s|
   if s == 'X' # ストライク
     shots << 10
@@ -27,14 +28,11 @@ point = frames[0..8].each_with_index.sum do |frame, i|
   end
 end
 # 10投目以降の処理
-frames[9].concat frames[10] + frames[11].to_a
+frames[9..].flatten!
 # 10投目の計算
-point += if frames[9].sum == 30 # ストライク
-           30
-         elsif frames[9][0] + frames[9][1] == 10 # スペア
-           10 + frames[9][2]
-         else
-           frames[9][0] + frames[9][1] + frames[9][2].to_i
-         end
+(9..11).each do |i|
+  break if frames[i].nil?
 
+  point += frames[i].sum
+end
 puts point
