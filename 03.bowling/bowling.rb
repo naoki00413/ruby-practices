@@ -27,8 +27,7 @@ point = frames[0..8].each_with_index.sum do |frame, i|
     frame.sum
   end
 end
-# 10投目以降の処理
-frames[9..].flatten
+
 # 10投目の計算
 point += frames[9..].sum(&:sum)
 puts point
