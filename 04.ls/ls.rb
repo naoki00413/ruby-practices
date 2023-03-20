@@ -7,7 +7,7 @@ def file_data_list
               else
                 file_date.each_slice((file_date.count / 3) + 1).to_a # 割り切れない場合
               end
-  vertical_sort = file_sort[0].zip(*file_sort[1..]) # ファイルの並び替え
+  vertical_sort = file_sort[0].zip(*file_sort[1..]) # ファイル並び替え
   file_space = file_date.max_by(&:length) # ファイルの最大文字数を取得
   vertical_sort.each do |vertical|
     vertical.compact.each { print _1.ljust(file_space.length + 3) }
