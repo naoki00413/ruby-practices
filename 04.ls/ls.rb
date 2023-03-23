@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
-def file_data_list
-  file_date = Dir.glob('*') # ファイルデータを取得
-  file_sort = if (file_date.count % 3).zero?
-                file_date.each_slice(file_date.count / 3).to_a # 取得したファイルを３で割る
-              else
-                file_date.each_slice((file_date.count / 3) + 1).to_a # 割り切れない場合
-              end
-  vertical_sort = file_sort[0].zip(*file_sort[1..]) # ファイルの並び替え
-  file_space = file_date.max_by(&:length) # ファイルの最大文字数を取得
-  vertical_sort.each do |vertical|
-    vertical.compact.each { print _1.ljust(file_space.length + 3) }
+def file_list
+  file_names = Dir.glob('*') # ファイルデータを取得
+  divide_file = file_names.count.divmod(3)
+  chunk_size = divide_file[1].zero? ? divide_file[0] : divide_file[0] + 1
+  chunked_files = file_names.each_slice(chunk_size).to_a
+  file_sort = chunked_files[0].zip(*chunked_files[1..]) # ファイルの並び替え
+  space_output = file_names.max_by(&:length) # ファイルの最大文字数を取得
+  file_sort.each do |reorder|
+    reorder.compact.each { print _1.ljust(space_output.length + 3) }
     puts # ファイルの最大文字数＋３で出力
   end
 end
 
-file_data_list
+file_list
