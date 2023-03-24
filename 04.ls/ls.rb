@@ -2,13 +2,13 @@
 
 def file_list
   file_names = Dir.glob('*') # ファイルデータを取得
-  divide_file = file_names.count.divmod(3)
-  chunk_size = divide_file[1].zero? ? divide_file[0] : divide_file[0] + 1
+  quotient, remainder = file_names.count.divmod(3)
+  chunk_size = remainder.zero? ? quotient : quotient + 1
   chunked_files = file_names.each_slice(chunk_size).to_a
-  file_sort = chunked_files[0].zip(*chunked_files[1..]) # ファイルの並び替え
-  space_output = file_names.max_by(&:length) # ファイルの最大文字数を取得
-  file_sort.each do |reorder|
-    reorder.compact.each { print _1.ljust(space_output.length + 3) }
+  file_replace = chunked_files[0].zip(*chunked_files[1..]) # ファイルの並び替え
+  get_max_length_file = file_names.max_by(&:length) # 最大文字数名のファイルを取得
+  file_replace.each do |reorder|
+    reorder.compact.each { print _1.ljust(get_max_length_file.length + 3) }
     puts # ファイルの最大文字数＋３で出力
   end
 end
