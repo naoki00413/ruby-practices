@@ -3,12 +3,9 @@
 require 'optparse'
 
 def option_command
-  option = ARGV.getopts('a')
-  if option['a']
-    Dir.glob('*', File::FNM_DOTMATCH)
-  else
-    Dir.glob('*')
-  end
+  params = ARGV.getopts('a')
+  frags = params['a'] ? File::FNM_DOTMATCH : 0
+  Dir.glob('*', frags)
 end
 
 def file_list
