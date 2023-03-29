@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+
+require 'optparse'
+
+def option_command
+  params = ARGV.getopts('a')
+  frags = params['a'] ? File::FNM_DOTMATCH : 0
+  Dir.glob('*', frags)
+end
+
+
 def file_list
   file_names = Dir.glob('*') # ファイルデータを取得
   quotient, remainder = file_names.count.divmod(3)
