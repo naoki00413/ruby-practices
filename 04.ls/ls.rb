@@ -6,7 +6,7 @@ def option_command
   if params['r']
     Dir.glob('*').reverse
   else
-    Dir.glob('*', frags)
+    Dir.glob('*')
   end
 end
 
