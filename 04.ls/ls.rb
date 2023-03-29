@@ -1,7 +1,17 @@
 # frozen_string_literal: true
 
+require 'optparse'
+def option_command
+  params = ARGV.getopts('r')
+  if params['r']
+    Dir.glob('*').reverse
+  else
+    Dir.glob('*', frags)
+  end
+end
+
 def file_list
-  file_names = Dir.glob('*') # ファイルデータを取得
+  file_names = option_command # ファイルデータを取得
   quotient, remainder = file_names.count.divmod(3)
   chunk_size = remainder.zero? ? quotient : quotient + 1
   chunked_files = file_names.each_slice(chunk_size).to_a
