@@ -9,8 +9,6 @@ def option_command
   Dir.glob('*', frags)
 end
 
-def file_list
-  file_names = option_command # ファイルデータを取得
 
 def file_list
   file_names = Dir.glob('*') # ファイルデータを取得
