@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
-def oearn_filename
+def branch_condition_option
   params = ARGV.getopts('r')
   if params['r']
     Dir.glob('*').reverse
@@ -11,7 +11,7 @@ def oearn_filename
 end
 
 def file_list
-  file_names = earn_filename # ファイルデータを取得
+  file_names = branch_condition_option
   quotient, remainder = file_names.count.divmod(3)
   chunk_size = remainder.zero? ? quotient : quotient + 1
   chunked_files = file_names.each_slice(chunk_size).to_a
