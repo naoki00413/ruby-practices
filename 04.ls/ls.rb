@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 require 'optparse'
+
+def fetch_file_list
+  Dir.glob('*')
+end
+
 def branch_condition_option
   params = ARGV.getopts('r')
   if params['r']
-    Dir.glob('*').reverse
+    fetch_file_list.reverse
   else
-    Dir.glob('*')
+    fetch_file_list
   end
 end
 
